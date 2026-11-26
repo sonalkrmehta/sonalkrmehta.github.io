@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sonal Kumar — DevOps Engineer | Engineering Notebook</title>
+  <meta name="description" content="Portfolio of Sonal Kumar, DevOps Engineer specializing in AWS, Kubernetes, Helm, Terraform, Ansible, Docker, Linux (RHEL), and CI/CD automation." />
+
+  <!-- Google Fonts: Plus Jakarta Sans, Inter, JetBrains Mono & Caveat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: {
+              DEFAULT: '#FAF8F5',
+              warm: '#F4F0E8',
+              card: '#FFFDF9',
+              line: '#E5DFD3',
+              margin: '#E5989B',
+            },
+            ink: {
+              DEFAULT: '#1E232A',
+              secondary: '#4A525D',
+              muted: '#687280',
+              accent: '#1D4ED8',
+              forest: '#15803D',
+              amber: '#B45309',
+            },
+            sticky: {
+              yellow: '#FEF6C9',
+              blue: '#E4F0FA',
+              mint: '#E3F6EC',
+            }
+          },
+          fontFamily: {
+            display: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            hand: ['Caveat', 'cursive'],
+          },
+          boxShadow: {
+            'paper': '0 2px 6px rgba(30, 35, 42, 0.04), 0 10px 24px -6px rgba(30, 35, 42, 0.08)',
+            'paper-hover': '0 8px 18px rgba(30, 35, 42, 0.07), 0 20px 36px -8px rgba(30, 35, 42, 0.13)',
+            'notebook': '0 22px 48px -12px rgba(30, 35, 42, 0.18), 0 4px 12px rgba(30, 35, 42, 0.06)',
+            'sticky': '2px 5px 12px rgba(30, 35, 42, 0.10)',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Base Paper Texture & Subtle Engineering Grid */
+    body {
+      background-color: #FAF8F5;
+      color: #1E232A;
+      background-image:
+        radial-gradient(#DCD5C7 0.85px, transparent 0.85px),
+        linear-gradient(to bottom, rgba(229, 223, 211, 0.25) 1px, transparent 1px);
+      background-size: 24px 24px, 100% 32px;
+      background-position: 0 0, 0 12px;
+      overflow-x: hidden;
+    }
+
+    /* Subtle tactile noise overlay via inline SVG data URI */
+    .paper-grain {
+      position: relative;
+    }
+    .paper-grain::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.32;
+      border-radius: inherit;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.14'/%3E%3C/svg%3E");
+    }
+
+    /* Ruled Notebook Lines */
+    .ruled-lines {
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 27px,
+        #E6E0D4 28px
+      );
+      line-height: 28px;
+    }
+
+    /* Graph Paper Grid for Blueprint Previews */
+    .graph-grid {
+      background-color: #FBF9F5;
+      background-image:
+        linear-gradient(to right, rgba(29, 78, 216, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(29, 78, 216, 0.07) 1px, transparent 1px);
+      background-size: 18px 18px;
+    }
+
+    /* Open Notebook Center Spine Shadow */
+    .notebook-spine {
+      background: linear-gradient(
+        90deg,
+        rgba(30, 35, 42, 0.01) 0%,
+        rgba(30, 35, 42, 0.06) 42%,
+        rgba(30, 35, 42, 0.14) 50%,
+        rgba(30, 35, 42, 0.06) 58%,
+        rgba(30, 35, 42, 0.01) 100%
+      );
+    }
+
+    /* Hand-drawn SVG Underline Hover Sweep */
+    .hand-underline {
+      position: relative;
+      display: inline-block;
+    }
+    .hand-underline::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 100%;
+      height: 7px;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 10' preserveAspectRatio='none'%3E%3Cpath d='M2 7 Q 65 2, 115 6 T 218 4' fill='none' stroke='%231D4ED8' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E");
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .group:hover .hand-underline::after,
+    .hand-underline-active::after {
+      transform: scaleX(1);
+    }
+
+    /* Paper Card Lift Interaction */
+    .notebook-card {
+      background-color: #FFFDF9;
+      border: 1.5px solid #DDD6C8;
+      border-radius: 14px;
+      box-shadow: 0 2px 6px rgba(30, 35, 42, 0.04), 0 10px 24px -6px rgba(30, 35, 42, 0.08);
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+    }
+    .notebook-card:hover {
+      transform: translateY(-4px);
+      border-color: #BDB3A0;
+      box-shadow: 0 10px 20px rgba(30, 35, 42, 0.07), 0 22px 38px -8px rgba(30, 35, 42, 0.13);
+    }
+
+    /* Sticky Note Subtle Curl & Tilt */
+    .sticky-note {
+      box-shadow: 2px 5px 12px rgba(30, 35, 42, 0.11);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .sticky-note:hover {
+      transform: rotate(0deg) translateY(-3px) scale(1.03);
+      box-shadow: 4px 10px 18px rgba(30, 35, 42, 0.16);
+    }
+
+    /* Entrance Reveal Animation */
+    .reveal-entry {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal-entry.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 9px;
+      height: 9px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F4F0E8;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #C9C0B1;
+      border-radius: 9999px;
+      border: 2px solid #F4F0E8;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #A89E8E;
+    }
+
+    /* Print Styling for Resume/Notebook Snapshot */
+    @media print {
+      nav, .no-print { display: none !important; }
+      body { background: #FFFFFF !important; }
+      .notebook-card { box-shadow: none !important; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
+
+  <!-- Toast Notification Container (Replaces alert() cleanly) -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- ===================================================================== -->
+  <!-- TOP NAVIGATION BAR (Minimal Sticky Paper Tabs)                        -->
+  <!-- ===================================================================== -->
+  <nav class="sticky top-0 z-40 bg-[#FAF8F5]/92 backdrop-blur-md border-b border-[#E5DFD3] transition-all">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Brand / Notebook Spine Mark -->
+        <a href="#top" class="flex items-center gap-2.5 group focus:outline-none">
+          <div class="w-9 h-9 rounded-lg bg-[#1E232A] text-[#FAF8F5] flex items-center justify-center font-mono font-semibold text-sm shadow-sm group-hover:bg-blue-700 transition-colors">
+            SK
+          </div>
+          <div class="leading-tight">
+            <span class="font-display font-bold text-base tracking-tight text-ink block">Sonal Kumar</span>
+            <span class="font-mono text-[11px] text-ink-muted block">devops engineering log</span>
+          </div>
+        </a>
+
+        <!-- Desktop Notebook Index Tabs -->
+        <div class="hidden md:flex items-center gap-1 bg-[#F4F0E8] p-1 rounded-xl border border-[#E2DBD0]">
+          <a href="#projects" class="px-3.5 py-1.5 rounded-lg text-xs font-medium text-ink-secondary hover:text-ink hover:bg-[#FFFDF9] transition-all">01. Projects</a>
+          <a href="#about" class="px-3.5 py-1.5 rounded-lg text-xs font-medium text-ink-secondary hover:text-ink hover:bg-[#FFFDF9] transition-all">02. About</a>
+          <a href="#skills" class="px-3.5 py-1.5 rounded-lg text-xs font-medium text-ink-secondary hover:text-ink hover:bg-[#FFFDF9] transition-all">03. Stack</a>
+          <a href="#experience" class="px-3.5 py-1.5 rounded-lg text-xs font-medium text-ink-secondary hover:text-ink hover:bg-[#FFFDF9] transition-all">04. Education &amp; Certs</a>
+          <a href="#contact" class="px-3.5 py-1.5 rounded-lg text-xs font-medium text-ink-secondary hover:text-ink hover:bg-[#FFFDF9] transition-all">05. Contact</a>
+        </div>
+
+        <!-- Right Quick Action & Mobile Menu Button -->
+        <div class="flex items-center gap-2.5">
+          <button onclick="openResumeModal()" title="Preview Formatted Resume" class="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium text-ink bg-[#FFFDF9] border border-[#D8D0C3] hover:border-ink transition-colors shadow-2xs cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-ink-secondary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span>Preview CV</span>
+          </button>
+
+          <button onclick="downloadResumePDF()" title="Download Sonal_Kumar_DevOps_Resume.pdf" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-semibold text-blue-900 bg-blue-50/90 border border-blue-200 hover:bg-blue-100 hover:border-blue-400 transition-colors shadow-2xs cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-blue-700" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            <span>Resume ↓</span>
+          </button>
+
+          <a href="#contact" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-[#1E232A] text-[#FAF8F5] hover:bg-blue-700 transition-colors shadow-2xs">
+            <span>Let's Connect</span>
+          </a>
+
+          <button id="mobile-menu-btn" aria-label="Toggle Menu" class="md:hidden p-2 rounded-lg border border-[#DDD6C8] bg-[#FFFDF9] text-ink">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div id="mobile-menu" class="hidden md:hidden pb-4 pt-2 border-t border-[#E5DFD3] space-y-1">
+        <a href="#projects" class="block px-3 py-2 rounded-lg text-sm font-medium text-ink hover:bg-[#F4F0E8]">01. Projects — Things I've Built</a>
+        <a href="#about" class="block px-3 py-2 rounded-lg text-sm font-medium text-ink hover:bg-[#F4F0E8]">02. About &amp; Philosophy</a>
+        <a href="#skills" class="block px-3 py-2 rounded-lg text-sm font-medium text-ink hover:bg-[#F4F0E8]">03. Technical Stack</a>
+        <a href="#experience" class="block px-3 py-2 rounded-lg text-sm font-medium text-ink hover:bg-[#F4F0E8]">04. Education &amp; Certifications</a>
+        <a href="#contact" class="block px-3 py-2 rounded-lg text-sm font-medium text-ink hover:bg-[#F4F0E8]">05. Contact</a>
+        <div class="pt-2 px-3 flex items-center gap-2">
+          <button onclick="downloadResumePDF()" class="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-mono font-semibold bg-blue-50 text-blue-900 border border-blue-200">
+            <span>Download Resume (PDF) ↓</span>
+          </button>
+          <button onclick="openResumeModal()" class="px-3 py-2 rounded-lg text-xs font-mono font-medium bg-[#FFFDF9] text-ink border border-[#D8D0C3]">
+            Preview
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===================================================================== -->
+  <!-- 1. PREMIUM HERO SECTION — FIRST IMPRESSION MATTERS                    -->
+  <!-- ===================================================================== -->
+  <header id="top" class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 lg:pt-16 lg:pb-28 border-b border-[#E5DFD3]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+
+        <!-- LEFT COLUMN: Personal Introduction, Headline & CTAs (5 cols) -->
+        <div class="lg:col-span-5 space-y-6">
+          <!-- Handwritten Eyebrow -->
+          <div class="inline-flex items-center gap-2.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+            <span class="font-hand text-xl sm:text-2xl font-bold tracking-wide text-blue-800 uppercase">
+              MY DEVELOPER NOTEBOOK · EST. 2026
+            </span>
+          </div>
+
+          <!-- Main Headline -->
+          <h1 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-[2.65rem] text-ink leading-[1.14] tracking-tight">
+            Building, Automating &amp; Delivering
+            <span class="relative inline-block text-blue-800">
+              Better Software.
+              <!-- Crisp Hand-Drawn Underline SVG -->
+              <svg class="w-full h-3 -mt-1 text-blue-600/75" viewBox="0 0 260 12" fill="none" preserveAspectRatio="none">
+                <path d="M2 8.5C68 3.2 174 2.8 258 7.5" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </h1>
+
+          <!-- Personal Introduction -->
+          <p class="text-base sm:text-[1.05rem] text-ink leading-relaxed font-medium">
+            Hi, I'm <span class="font-bold underline decoration-amber-400/80 decoration-2 underline-offset-4">Sonal Kumar</span> — a DevOps Engineer passionate about cloud infrastructure, Kubernetes, automation, Linux, and building reliable deployment workflows.
+          </p>
+
+          <!-- Supporting Text -->
+          <p class="text-sm sm:text-[0.95rem] text-ink-secondary leading-relaxed">
+            Final-year B.Tech Computer Science student at Lovely Professional University (graduating July 2027) seeking a full-time DevOps Engineer role. I build end-to-end automation projects with Kubernetes, Helm, Docker, GitHub Actions, Terraform, Ansible, and AWS.
+          </p>
+
+          <!-- Primary & Secondary CTA Buttons -->
+          <div class="flex flex-wrap items-center gap-3 pt-1">
+            <a href="#projects" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#1E232A] text-[#FAF8F5] font-semibold text-sm hover:bg-blue-800 transition-all shadow-paper hover:-translate-y-0.5">
+              <span>Explore My Projects</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+
+            <button onclick="downloadResumePDF()" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#FFFDF9] text-ink font-semibold text-sm border-[1.5px] border-[#CFC6B6] hover:border-blue-700 hover:text-blue-900 hover:bg-blue-50/40 transition-all shadow-2xs cursor-pointer">
+              <svg class="w-4 h-4 text-blue-700" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>Download Resume (PDF)</span>
+            </button>
+
+            <a href="#contact" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-ink-secondary hover:text-ink font-semibold text-sm underline decoration-[#CFC6B6] hover:decoration-ink underline-offset-4 transition-all">
+              <span>Let's Connect</span>
+            </a>
+          </div>
+
+          <!-- Social Links Row -->
+          <div class="pt-3 border-t border-[#E5DFD3] flex flex-wrap items-center gap-5 text-sm">
+            <a id="hero-github-link" href="https://github.com/sonalkrmehta" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-ink-secondary hover:text-ink font-medium transition-colors group">
+              <svg class="w-4 h-4 text-ink group-hover:text-blue-700 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              <span>GitHub</span>
+            </a>
+
+            <a id="hero-linkedin-link" href="https://linkedin.com/in/sonal-kumar-b4949624a" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-ink-secondary hover:text-ink font-medium transition-colors group">
+              <svg class="w-4 h-4 text-ink group-hover:text-blue-700 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+              <span>LinkedIn</span>
+            </a>
+
+            <button onclick="copyEmailAddress()" class="inline-flex items-center gap-2 text-ink-secondary hover:text-ink font-medium transition-colors group cursor-pointer">
+              <svg class="w-4 h-4 text-ink group-hover:text-blue-700 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              <span>Email</span>
+            </button>
+
+            <span class="inline-flex items-center gap-1.5 font-mono text-xs text-ink-muted">
+              <span>📍 Phagwara, Punjab, India</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: Open Two-Page Engineering Notebook Composition (7 cols) -->
+        <div class="lg:col-span-7 relative">
+          <!-- Subtle Notebook Backboard Cover Edge -->
+          <div class="relative rounded-2xl bg-[#262B34] p-2 sm:p-2.5 shadow-notebook border border-[#1E232A]">
+            
+            <!-- Three Tactile Sticky Notes (Carefully balanced, non-cluttered) -->
+            <div class="hidden sm:flex items-center gap-2.5 absolute -top-4 right-5 z-20">
+              <span class="sticky-note bg-sticky-yellow text-ink font-hand text-base font-bold px-3 py-1 rounded-xs border border-amber-300/70 -rotate-2 select-none">
+                Automate Everything
+              </span>
+              <span class="sticky-note bg-sticky-blue text-blue-950 font-hand text-base font-bold px-3 py-1 rounded-xs border border-blue-300/70 rotate-1 select-none">
+                Cloud Native
+              </span>
+              <span class="sticky-note bg-sticky-mint text-emerald-950 font-hand text-base font-bold px-3 py-1 rounded-xs border border-emerald-300/70 -rotate-1 select-none">
+                Always Learning
+              </span>
+            </div>
+
+            <!-- Open Two-Page Spread Container -->
+            <div class="relative grid grid-cols-1 md:grid-cols-2 rounded-xl overflow-hidden bg-[#FFFDF9] paper-grain">
+              
+              <!-- Center Spine Binding Shadow (Desktop) -->
+              <div class="hidden md:block absolute inset-y-0 left-1/2 -translate-x-1/2 w-8 notebook-spine z-10 pointer-events-none"></div>
+              <!-- Center Ring Binder Loops (Desktop) -->
+              <div class="hidden md:flex flex-col justify-around items-center absolute inset-y-6 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+                <span class="w-4 h-1.5 rounded-full bg-gradient-to-r from-stone-400 via-stone-200 to-stone-500 shadow-xs"></span>
+                <span class="w-4 h-1.5 rounded-full bg-gradient-to-r from-stone-400 via-stone-200 to-stone-500 shadow-xs"></span>
+                <span class="w-4 h-1.5 rounded-full bg-gradient-to-r from-stone-400 via-stone-200 to-stone-500 shadow-xs"></span>
+                <span class="w-4 h-1.5 rounded-full bg-gradient-to-r from-stone-400 via-stone-200 to-stone-500 shadow-xs"></span>
+                <span class="w-4 h-1.5 rounded-full bg-gradient-to-r from-stone-400 via-stone-200 to-stone-500 shadow-xs"></span>
+              </div>
+
+              <!-- LEFT NOTEBOOK PAGE: AWS Cloud & CI/CD Hand-Drawn Sketch -->
+              <div class="p-5 sm:p-6 border-b md:border-b-0 md:border-r border-[#E4DDD0] graph-grid relative">
+                <!-- Page Header & Red Margin Accent -->
+                <div class="flex items-center justify-between border-b border-[#E2DBD0] pb-2 mb-3.5">
+                  <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-ink-muted">FIG 01 · DEPLOYMENT TOPOLOGY</span>
+                  <span class="font-mono text-[11px] text-blue-700 font-medium">p. 01</span>
+                </div>
+
+                <!-- Handwritten Note Title -->
+                <p class="font-hand text-xl font-bold text-ink mb-2 leading-snug">
+                  Cloud &amp; Kubernetes Delivery Pipeline:
+                </p>
+
+                <!-- Hand-Drawn Architectural Diagram SVG (GitHub Actions -> GHCR/Docker Hub -> Terraform/Ansible -> AWS EC2 & K8s) -->
+                <div class="rounded-lg bg-[#FFFDF9]/90 border border-[#DFD8CA] p-3 shadow-2xs">
+                  <svg viewBox="0 0 320 205" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Step 1: Git Push / GitHub Actions -->
+                    <rect x="10" y="14" width="90" height="44" rx="7" fill="#FAF8F5" stroke="#1E232A" stroke-width="1.6"/>
+                    <text x="55" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" font-weight="600" fill="#1E232A">GitHub Actions</text>
+                    <text x="55" y="47" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#525B66">Test · Build · Push</text>
+
+                    <!-- Arrow 1 -> 2 -->
+                    <path d="M102 36 H 124" stroke="#1D4ED8" stroke-width="1.6" stroke-linecap="round"/>
+                    <path d="M120 32 L 126 36 L 120 40" stroke="#1D4ED8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+
+                    <!-- Step 2: GHCR / Docker Hub -->
+                    <rect x="128" y="14" width="84" height="44" rx="7" fill="#EFF6FF" stroke="#1D4ED8" stroke-width="1.6"/>
+                    <text x="170" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="600" fill="#1E3A8A">GHCR / Hub</text>
+                    <text x="170" y="47" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#1D4ED8">Docker &amp; Helm</text>
+
+                    <!-- Arrow 2 -> 3 -->
+                    <path d="M214 36 H 234" stroke="#1D4ED8" stroke-width="1.6" stroke-linecap="round"/>
+                    <path d="M230 32 L 236 36 L 230 40" stroke="#1D4ED8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+
+                    <!-- Step 3: Terraform + Ansible -->
+                    <rect x="238" y="14" width="72" height="44" rx="7" fill="#FEF9C3" stroke="#A16207" stroke-width="1.6"/>
+                    <text x="274" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="600" fill="#713F12">TF + Ansible</text>
+                    <text x="274" y="47" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#854D0E">IaC &amp; Config</text>
+
+                    <!-- Downward Connector to Runtime Boundary -->
+                    <path d="M274 60 V 82 H 165 V 92" stroke="#1E232A" stroke-width="1.5" stroke-dasharray="3 3"/>
+                    <path d="M161 88 L 165 94 L 169 88" stroke="#1E232A" stroke-width="1.5" stroke-linecap="round"/>
+
+                    <!-- AWS EC2 & K8s Runtime Dashed Box -->
+                    <rect x="14" y="96" width="292" height="96" rx="10" fill="#FAF8F5" stroke="#4A525D" stroke-width="1.5" stroke-dasharray="5 3"/>
+                    <!-- Label Badge -->
+                    <rect x="24" y="88" width="114" height="16" rx="4" fill="#1E232A"/>
+                    <text x="81" y="99" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" font-weight="600" fill="#FAF8F5">AWS EC2 · K8s Cluster</text>
+
+                    <!-- Inside: Ingress / Nginx -->
+                    <rect x="26" y="116" width="74" height="62" rx="6" fill="#FFFDF9" stroke="#CBD5E1" stroke-width="1.4"/>
+                    <text x="63" y="138" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="600" fill="#1E232A">Ingress/Nginx</text>
+                    <text x="63" y="152" text-anchor="middle" font-family="Inter, sans-serif" font-size="7.5" fill="#525B66">Reverse Proxy</text>
+                    <circle cx="63" cy="166" r="3" fill="#16A34A"/>
+
+                    <!-- Arrow Ingress -> Compute -->
+                    <path d="M102 147 H 118" stroke="#16A34A" stroke-width="1.5"/>
+
+                    <!-- Inside: K8s Pods & HPA -->
+                    <rect x="120" y="116" width="92" height="62" rx="6" fill="#ECFDF5" stroke="#15803D" stroke-width="1.5"/>
+                    <text x="166" y="137" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="600" fill="#14532D">K8s Pods + HPA</text>
+                    <text x="166" y="151" text-anchor="middle" font-family="Inter, sans-serif" font-size="7.5" fill="#166534">Flask &amp; Microservices</text>
+                    <text x="166" y="164" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7.5" fill="#15803D">Auto-Remediation</text>
+
+                    <!-- Arrow Compute -> Monitoring -->
+                    <path d="M214 147 H 228" stroke="#4A525D" stroke-width="1.5"/>
+
+                    <!-- Inside: Observability -->
+                    <rect x="230" y="116" width="64" height="62" rx="6" fill="#FFFDF9" stroke="#CBD5E1" stroke-width="1.4"/>
+                    <text x="262" y="138" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="600" fill="#1E232A">Telemetry</text>
+                    <text x="262" y="152" text-anchor="middle" font-family="Inter, sans-serif" font-size="7.5" fill="#525B66">Prometheus</text>
+                    <text x="262" y="164" text-anchor="middle" font-family="Inter, sans-serif" font-size="7.5" fill="#525B66">&amp; Grafana</text>
+                  </svg>
+                </div>
+
+                <!-- Handwritten Checkpoints -->
+                <ul class="mt-3.5 space-y-1.5 text-xs text-ink-secondary font-mono">
+                  <li class="flex items-center gap-2">
+                    <span class="text-emerald-700 font-bold">✓</span> Reproducible AWS EC2 &amp; VPC via Terraform
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="text-emerald-700 font-bold">✓</span> Helm charts, HPA scaling &amp; RHEL hardening
+                  </li>
+                </ul>
+              </div>
+
+              <!-- RIGHT NOTEBOOK PAGE: Terminal Code Snippet & Handwritten Margin Note -->
+              <div class="p-5 sm:p-6 bg-[#FFFDF9] flex flex-col justify-between relative">
+                <div>
+                  <!-- Page Header -->
+                  <div class="flex items-center justify-between border-b border-[#E2DBD0] pb-2 mb-3.5">
+                    <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-ink-muted">RUNBOOK · LIVE IaC</span>
+                    <span class="font-mono text-[11px] text-ink-muted">p. 02</span>
+                  </div>
+
+                  <!-- Interactive File Tabs inside Notebook Page -->
+                  <div class="flex items-center gap-1.5 mb-2.5">
+                    <button onclick="switchHeroTab('tf')" id="hero-tab-tf" class="px-2.5 py-1 rounded-md font-mono text-[11px] font-semibold bg-[#1E232A] text-[#FAF8F5] transition-colors cursor-pointer">
+                      main.tf
+                    </button>
+                    <button onclick="switchHeroTab('yml')" id="hero-tab-yml" class="px-2.5 py-1 rounded-md font-mono text-[11px] font-medium bg-[#F4F0E8] text-ink-secondary hover:text-ink transition-colors cursor-pointer">
+                      k8s-deploy.yml
+                    </button>
+                    <button onclick="switchHeroTab('sh')" id="hero-tab-sh" class="px-2.5 py-1 rounded-md font-mono text-[11px] font-medium bg-[#F4F0E8] text-ink-secondary hover:text-ink transition-colors cursor-pointer">
+                      infrawatch.sh
+                    </button>
+                  </div>
+
+                  <!-- Embedded Dark-Ink Terminal Block -->
+                  <div class="rounded-xl bg-[#1A1F26] text-slate-200 p-3.5 font-mono text-[11.5px] leading-relaxed shadow-inner border border-slate-800">
+                    <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
+                      <div class="flex items-center gap-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-rose-400/90"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400/90"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400/90"></span>
+                        <span id="hero-terminal-filename" class="ml-1.5 text-[10px] text-slate-400">autodeploy/terraform/main.tf</span>
+                      </div>
+                      <span class="text-[10px] text-emerald-400">● ready</span>
+                    </div>
+
+                    <pre id="hero-terminal-code" class="overflow-x-auto text-slate-200"><code><span class="text-sky-400">resource</span> <span class="text-amber-300">"aws_instance"</span> <span class="text-emerald-300">"autodeploy_node"</span> {
+  ami                    = var.rhel_ami_id
+  instance_type          = <span class="text-emerald-300">"t3.micro"</span>
+  vpc_security_group_ids = [aws_security_group.web.id]
+}
+
+<span class="text-slate-400"># Provision EC2 &amp; configure Nginx via Ansible</span>
+<span class="text-emerald-400">$</span> terraform apply -auto-approve
+<span class="text-emerald-300">Apply complete! Resources: 6 added.</span></code></pre>
+                  </div>
+                </div>
+
+                <!-- Handwritten Annotation with Hand-Drawn Arrow -->
+                <div class="mt-4 pt-3 border-t border-dashed border-[#DFD8CA] flex items-center justify-between gap-2">
+                  <div class="flex items-center gap-2">
+                    <svg class="w-6 h-6 text-blue-700 shrink-0" viewBox="0 0 28 28" fill="none">
+                      <path d="M5 20 C 8 10, 16 8, 23 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                      <path d="M19 7 L 24 11.5 L 18 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <p class="font-hand text-xl font-bold text-ink leading-none">
+                      "Currently building, breaking &amp; learning."
+                    </p>
+                  </div>
+                  <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-[#F4F0E8] text-ink-muted border border-[#E2DBD0] shrink-0">
+                    v2026.11
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- 2. PREMIUM PROJECTS SECTION — SHOWCASE TECHNICAL EXPERTISE            -->
+  <!-- ===================================================================== -->
+  <section id="projects" class="py-16 sm:py-24 border-b border-[#E5DFD3]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12 reveal-entry">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="font-mono text-xs font-semibold uppercase tracking-widest text-blue-800 bg-blue-50 border border-blue-200 px-2.5 py-0.5 rounded-md">
+              SECTION 01 · ENGINEERING ARCHIVE
+            </span>
+            <span class="font-hand text-xl text-ink-secondary font-semibold">documented builds</span>
+          </div>
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-ink tracking-tight">
+            Things I've Built.
+          </h2>
+          <p class="mt-2 text-base text-ink-secondary max-w-2xl">
+            Experiments, automation workflows, and infrastructure projects documented along the way.
+          </p>
+        </div>
+
+        <div class="font-hand text-xl text-ink-secondary md:text-right">
+          Click any entry to inspect architecture &amp; repo →
+        </div>
+      </div>
+
+      <!-- Projects Container (Rendered dynamically from centralized PORTFOLIO_DATA) -->
+      <div id="projects-grid" class="space-y-8">
+        <!-- Populated via JavaScript for effortless maintainability -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 3. ABOUT SECTION — ENGINEERING PHILOSOPHY & NOTEBOOK SPREAD           -->
+  <!-- ===================================================================== -->
+  <section id="about" class="py-16 sm:py-24 border-b border-[#E5DFD3] bg-[#F4F0E8]/55">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start reveal-entry">
+
+        <!-- Left Column: Narrative Notebook Entry -->
+        <div class="lg:col-span-7 notebook-card p-6 sm:p-9 paper-grain">
+          <div class="flex items-center justify-between border-b border-[#E5DFD3] pb-3 mb-5">
+            <span class="font-mono text-xs font-semibold uppercase tracking-wider text-ink-muted">SECTION 02 · FIELD NOTES &amp; PHILOSOPHY</span>
+            <span class="font-hand text-xl font-bold text-blue-800">Why DevOps &amp; MLOps?</span>
+          </div>
+
+          <h2 class="font-display font-bold text-2xl sm:text-3xl text-ink tracking-tight mb-4">
+            Bridging Code, Cloud Infrastructure &amp; Reliable Automation.
+          </h2>
+
+          <div class="space-y-4 text-sm sm:text-[0.97rem] text-ink-secondary leading-relaxed">
+            <p>
+              I'm <strong class="text-ink font-semibold">Sonal Kumar</strong>, a final-year B.Tech Computer Science student at <strong class="text-ink font-medium">Lovely Professional University</strong> (graduating July 2027) seeking a full-time <strong class="text-ink font-semibold">DevOps Engineer</strong> role. I specialize in building end-to-end deployment pipelines, Kubernetes platforms, and self-healing infrastructure.
+            </p>
+            <p>
+              Having completed <strong class="text-ink font-medium">Red Hat Academy</strong> system administration training (<strong class="text-ink font-medium">RH124 &amp; RH134</strong>) alongside hands-on AWS, Terraform, and Ansible projects, I focus on turning manual server operations into reproducible, version-controlled workflows.
+            </p>
+          </div>
+
+          <!-- Three Core Principles -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 mt-7 pt-6 border-t border-[#E5DFD3]">
+            <div class="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#E5DFD3]">
+              <span class="font-mono text-xs font-bold text-blue-800 block mb-1">01 / CI/CD &amp; CONTAINERS</span>
+              <p class="text-xs text-ink-secondary leading-relaxed">Automated GitHub Actions builds pushed to GHCR &amp; Docker Hub and deployed to EC2 or Kubernetes.</p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#E5DFD3]">
+              <span class="font-mono text-xs font-bold text-emerald-800 block mb-1">02 / INFRA AS CODE</span>
+              <p class="text-xs text-ink-secondary leading-relaxed">Reproducible AWS networking and compute with Terraform paired with idempotent Ansible playbooks.</p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#E5DFD3]">
+              <span class="font-mono text-xs font-bold text-amber-800 block mb-1">03 / AUTO-REMEDIATION</span>
+              <p class="text-xs text-ink-secondary leading-relaxed">Prometheus &amp; Grafana observability plus Python/Bash health scripts that recover services automatically.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Ruled Index Card Summary -->
+        <div class="lg:col-span-5 notebook-card p-6 sm:p-8 bg-[#FFFDF9] relative">
+          <!-- Red Margin Accent Line -->
+          <div class="flex items-center justify-between pb-3 mb-4 border-b-2 border-rose-300/70">
+            <span class="font-mono text-xs font-bold uppercase tracking-wider text-ink">ENGINEER INDEX CARD</span>
+            <span class="font-mono text-xs text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">Seeking DevOps Role</span>
+          </div>
+
+          <dl class="divide-y divide-[#E5DFD3] text-sm">
+            <div class="py-3 flex justify-between gap-4">
+              <dt class="font-mono text-xs text-ink-muted uppercase">Education</dt>
+              <dd class="font-medium text-ink text-right">B.Tech CSE · LPU (Jul 2027)</dd>
+            </div>
+            <div class="py-3 flex justify-between gap-4">
+              <dt class="font-mono text-xs text-ink-muted uppercase">Location</dt>
+              <dd class="font-medium text-ink text-right">Phagwara, Punjab, India</dd>
+            </div>
+            <div class="py-3 flex justify-between gap-4">
+              <dt class="font-mono text-xs text-ink-muted uppercase">Cloud &amp; IaC</dt>
+              <dd class="font-medium text-ink text-right">AWS (EC2, VPC, EKS), Terraform, Ansible</dd>
+            </div>
+            <div class="py-3 flex justify-between gap-4">
+              <dt class="font-mono text-xs text-ink-muted uppercase">Containers &amp; CI</dt>
+              <dd class="font-medium text-ink text-right">Kubernetes, Helm, Docker, GitHub Actions</dd>
+            </div>
+            <div class="py-3 flex justify-between gap-4">
+              <dt class="font-mono text-xs text-ink-muted uppercase">Linux Training</dt>
+              <dd class="font-medium text-ink text-right">Red Hat Academy (RH124 &amp; RH134)</dd>
+            </div>
+          </dl>
+
+          <div class="mt-5 p-3.5 rounded-xl bg-sticky-yellow/65 border border-amber-300/60">
+            <p class="font-hand text-xl font-bold text-ink leading-snug">
+              "Good infrastructure is invisible when it works—and self-explanatory when debugged."
+            </p>
+          </div>
+
+          <!-- Resume Quick Action Row inside Engineer Index Card -->
+          <div class="mt-4 pt-4 border-t border-[#E5DFD3] flex items-center gap-2.5">
+            <button onclick="downloadResumePDF()" class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#1E232A] text-[#FAF8F5] hover:bg-blue-800 text-xs font-mono font-semibold transition-colors cursor-pointer">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>Download Resume (PDF)</span>
+            </button>
+            <button onclick="openResumeModal()" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-[#FAF8F5] border border-[#CFC6B6] hover:border-ink text-xs font-mono font-semibold text-ink transition-colors cursor-pointer">
+              <span>Preview</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 4. SKILLS SECTION — TECHNICAL STACK MATRIX                          -->
+  <!-- ===================================================================== -->
+  <section id="skills" class="py-16 sm:py-24 border-b border-[#E5DFD3]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 reveal-entry">
+      <div class="mb-10">
+        <span class="font-mono text-xs font-semibold uppercase tracking-widest text-blue-800 bg-blue-50 border border-blue-200 px-2.5 py-0.5 rounded-md">
+          SECTION 03 · TOOLCHAIN &amp; CAPABILITIES
+        </span>
+        <h2 class="mt-2 font-display font-extrabold text-3xl text-ink tracking-tight">
+          Technical Stack &amp; Tooling.
+        </h2>
+      </div>
+      <div id="skills-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <!-- Rendered via PORTFOLIO_DATA -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 5. EDUCATION & CERTIFICATIONS — DATED ENGINEERING LOG                 -->
+  <!-- ===================================================================== -->
+  <section id="experience" class="py-16 sm:py-24 border-b border-[#E5DFD3] bg-[#F4F0E8]/55">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 reveal-entry">
+
+        <!-- Left 7 Cols: Education & Academic Background -->
+        <div class="lg:col-span-7">
+          <span class="font-mono text-xs font-semibold uppercase tracking-widest text-blue-800 bg-blue-50 border border-blue-200 px-2.5 py-0.5 rounded-md">
+            SECTION 04 · ACADEMIC &amp; ENGINEERING LOG
+          </span>
+          <h2 class="mt-2 font-display font-extrabold text-3xl text-ink tracking-tight mb-7">
+            Education &amp; Training.
+          </h2>
+
+          <div id="experience-list" class="space-y-6">
+            <!-- Rendered via PORTFOLIO_DATA -->
+          </div>
+        </div>
+
+        <!-- Right 5 Cols: Certifications & Credentials Board -->
+        <div class="lg:col-span-5">
+          <div class="flex items-center justify-between gap-2">
+            <span class="font-mono text-xs font-semibold uppercase tracking-widest text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-md">
+              VERIFIED CREDENTIALS
+            </span>
+            <a id="certs-credly-top-link" href="https://www.credly.com/users/sonal-kumar.eb239346/badges/credly" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 font-mono text-[11px] font-semibold text-blue-800 hover:text-ink underline underline-offset-4 transition-colors">
+              <span>Credly Profile</span>
+              <span>↗</span>
+            </a>
+          </div>
+          <h3 class="mt-2 font-display font-extrabold text-2xl sm:text-3xl text-ink tracking-tight mb-7">
+            Certifications &amp; Badges.
+          </h3>
+
+          <div id="certifications-list" class="space-y-4">
+            <!-- Rendered via PORTFOLIO_DATA -->
+          </div>
+
+          <!-- Notebook Credly Verification Strip -->
+          <div class="mt-4 p-3.5 rounded-xl bg-[#FFFDF9] border border-[#DDD6C8] flex items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-2.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-600 shrink-0"></span>
+              <span class="font-mono text-[11px] text-ink-secondary">Digital badges verifiable via Credly</span>
+            </div>
+            <a id="certs-credly-bottom-link" href="https://www.credly.com/users/sonal-kumar.eb239346/badges/credly" target="_blank" rel="noopener noreferrer" class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1E232A] text-[#FAF8F5] hover:bg-blue-800 font-mono text-[11px] font-semibold transition-colors">
+              <span>Verify on Credly</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 6. CONTACT SECTION — STAMPED ENGINEERING POSTCARD                     -->
+  <!-- ===================================================================== -->
+  <section id="contact" class="py-16 sm:py-24">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 reveal-entry">
+      <div class="notebook-card p-6 sm:p-10 lg:p-12 paper-grain relative overflow-hidden">
+        <!-- Decorative Top Air-Mail / Notebook Strip -->
+        <div class="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-blue-700 via-slate-800 to-emerald-700"></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <!-- Left Info -->
+          <div class="lg:col-span-6 space-y-5">
+            <span class="font-hand text-2xl font-bold text-blue-800">
+              START A NEW PAGE TOGETHER
+            </span>
+            <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-ink tracking-tight">
+              Let's Build Reliable Systems.
+            </h2>
+            <p class="text-sm sm:text-base text-ink-secondary leading-relaxed">
+              Actively seeking full-time DevOps Engineer opportunities (graduating July 2027). Reach out directly via email, phone, or social links to discuss cloud infrastructure, Kubernetes, or automation roles.
+            </p>
+
+            <!-- Direct Contact Channels -->
+            <div class="space-y-3 pt-2">
+              <div class="flex items-center justify-between p-3.5 rounded-xl bg-[#FAF8F5] border border-[#E2DBD0]">
+                <div>
+                  <span class="font-mono text-[11px] uppercase text-ink-muted block">Direct Email</span>
+                  <a id="contact-email-display" href="mailto:sonalmehta21012005@gmail.com" class="font-mono text-sm font-semibold text-ink hover:text-blue-800 transition-colors">sonalmehta21012005@gmail.com</a>
+                </div>
+                <button onclick="copyEmailAddress()" class="px-3 py-1.5 rounded-lg bg-[#FFFDF9] border border-[#D4CBB9] hover:border-ink text-xs font-mono font-medium text-ink transition-colors cursor-pointer">
+                  Copy
+                </button>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="flex items-center justify-between p-3.5 rounded-xl bg-[#FAF8F5] border border-[#E2DBD0]">
+                  <div>
+                    <span class="font-mono text-[11px] uppercase text-ink-muted block">Phone</span>
+                    <a id="contact-phone-display" href="tel:+916203536132" class="font-mono text-xs sm:text-sm font-semibold text-ink hover:text-blue-800 transition-colors">+91 6203536132</a>
+                  </div>
+                  <button onclick="copyPhoneNumber()" class="px-2.5 py-1 rounded-lg bg-[#FFFDF9] border border-[#D4CBB9] hover:border-ink text-[11px] font-mono font-medium text-ink transition-colors cursor-pointer">
+                    Copy
+                  </button>
+                </div>
+
+                <div class="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#E2DBD0]">
+                  <span class="font-mono text-[11px] uppercase text-ink-muted block">Location</span>
+              <div class="grid grid-cols-3 gap-2.5">
+                <a id="contact-github-link" href="https://github.com/sonalkrmehta" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 p-3 rounded-xl bg-[#FAF8F5] border border-[#E2DBD0] hover:border-ink text-xs sm:text-sm font-semibold text-ink transition-colors">
+                  <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                  <span>GitHub</span>
+                </a>
+                <a id="contact-linkedin-link" href="https://linkedin.com/in/sonal-kumar-b4949624a" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 p-3 rounded-xl bg-[#FAF8F5] border border-[#E2DBD0] hover:border-ink text-xs sm:text-sm font-semibold text-ink transition-colors">
+                  <svg class="w-4 h-4 text-blue-700 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                  <span>LinkedIn</span>
+                </a>
+                <a id="contact-credly-link" href="https://www.credly.com/users/sonal-kumar.eb239346/badges/credly" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 p-3 rounded-xl bg-[#FAF8F5] border border-[#E2DBD0] hover:border-ink text-xs sm:text-sm font-semibold text-ink transition-colors">
+                  <svg class="w-4 h-4 text-amber-700 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                  <span>Credly</span>
+                </a>
+              </div>
+
+              <!-- Direct Resume Download Card in Contact Section -->
+              <div class="p-3.5 rounded-xl bg-blue-50/70 border border-blue-200 flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <span class="font-mono text-[10.5px] font-bold uppercase text-blue-800 block">Curriculum Vitae</span>
+                  <span class="font-mono text-xs font-semibold text-ink">Sonal Kumar · DevOps Engineer</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button onclick="openResumeModal()" class="px-3 py-1.5 rounded-lg bg-[#FFFDF9] border border-[#CFC6B6] hover:border-ink text-xs font-mono font-medium text-ink transition-colors cursor-pointer">
+                    Preview
+                  </button>
+                  <button onclick="downloadResumePDF()" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#1E232A] text-[#FAF8F5] hover:bg-blue-800 text-xs font-mono font-semibold transition-colors cursor-pointer">
+                    <span>Download Resume ↓</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Quick Note Form -->
+          <form id="contact-form" onsubmit="handleContactSubmit(event)" class="lg:col-span-6 space-y-4 bg-[#FAF8F5] p-5 sm:p-6 rounded-2xl border border-[#E2DBD0]">
+            <div class="flex items-center justify-between border-b border-[#E2DBD0] pb-2">
+              <span class="font-mono text-xs font-semibold text-ink">QUICK DISPATCH NOTE</span>
+              <span class="font-mono text-[11px] text-ink-muted">POSTMARK · 2026</span>
+            </div>
+
+            <div>
+              <label for="sender-name" class="block font-mono text-xs font-medium text-ink-secondary mb-1">Your Name</label>
+              <input id="sender-name" type="text" required placeholder="Alex Rivera" class="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFDF9] border border-[#D8D0C3] text-sm text-ink focus:outline-none focus:border-blue-700" />
+            </div>
+
+            <div>
+              <label for="sender-email" class="block font-mono text-xs font-medium text-ink-secondary mb-1">Email Address</label>
+              <input id="sender-email" type="email" required placeholder="alex@company.com" class="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFDF9] border border-[#D8D0C3] text-sm text-ink focus:outline-none focus:border-blue-700" />
+            </div>
+
+            <div>
+              <label for="sender-message" class="block font-mono text-xs font-medium text-ink-secondary mb-1">Note / Opportunity Details</label>
+              <textarea id="sender-message" rows="3" required placeholder="Hi Sonal, I came across your DevOps & Terraform projects..." class="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFDF9] border border-[#D8D0C3] text-sm text-ink focus:outline-none focus:border-blue-700"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-3 px-5 rounded-xl bg-[#1E232A] text-[#FAF8F5] font-semibold text-sm hover:bg-blue-800 transition-colors cursor-pointer shadow-xs">
+              Send Note →
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- RESUME PREVIEW & INSTANT PDF DOWNLOAD MODAL                           -->
+  <!-- ===================================================================== -->
+  <div id="resume-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6 bg-[#1E232A]/65 backdrop-blur-xs" onclick="closeResumeModal(event)">
+    <div class="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-2xl bg-[#FFFDF9] border-2 border-[#CFC6B6] shadow-2xl p-5 sm:p-8 paper-grain" onclick="event.stopPropagation()">
+      <!-- Top Action Bar -->
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#E5DFD3] pb-4 mb-6">
+        <div class="flex items-center gap-2.5">
+          <span class="font-mono text-xs font-bold px-2.5 py-1 rounded bg-[#1E232A] text-[#FAF8F5]">RESUME</span>
+          <span class="font-mono text-xs text-ink-muted hidden sm:inline">Sonal Kumar · DevOps Engineer</span>
+        </div>
+
+        <div class="flex items-center gap-2.5">
+          <button onclick="downloadResumePDF()" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-800 text-[#FAF8F5] hover:bg-blue-900 text-xs font-mono font-semibold transition-colors shadow-xs cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            <span>Download Resume</span>
+          </button>
+
+          <button onclick="hideResumeModal()" aria-label="Close Resume Preview" class="p-2 rounded-xl bg-[#F4F0E8] hover:bg-[#E5DFD3] text-ink transition-colors cursor-pointer">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Crisp ATS-Style Sheet Preview -->
+      <div class="bg-white border border-[#DFD8CA] rounded-xl p-6 sm:p-9 shadow-inner text-ink space-y-5 font-sans">
+        <!-- Resume Header -->
+        <div class="border-b-2 border-ink pb-3.5 text-center sm:text-left">
+          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+            <h2 class="font-display font-extrabold text-2xl sm:text-3xl tracking-tight text-ink">Sonal Kumar</h2>
+            <span class="font-mono text-xs sm:text-sm font-semibold text-blue-800">DevOps Engineer</span>
+          </div>
+          <p class="mt-1.5 text-xs text-ink-secondary leading-relaxed">
+            Phagwara, Punjab, India &nbsp;|&nbsp; +91 6203536132 &nbsp;|&nbsp;
+            <a href="mailto:sonalmehta21012005@gmail.com" class="underline hover:text-blue-800">sonalmehta21012005@gmail.com</a>
+          </p>
+          <p class="mt-0.5 text-xs text-ink-secondary leading-relaxed">
+            <a href="https://github.com/sonalkrmehta" target="_blank" rel="noopener noreferrer" class="underline hover:text-blue-800">github.com/sonalkrmehta</a>
+            &nbsp;|&nbsp;
+            <a href="https://linkedin.com/in/sonal-kumar-b4949624a" target="_blank" rel="noopener noreferrer" class="underline hover:text-blue-800">linkedin.com/in/sonal-kumar-b4949624a</a>
+            &nbsp;|&nbsp;
+            <a href="https://www.credly.com/users/sonal-kumar.eb239346/badges/credly" target="_blank" rel="noopener noreferrer" class="underline hover:text-blue-800">credly.com/users/sonal-kumar.eb239346/badges/credly</a>
+          </p>
+        </div>
+
+        <!-- Professional Summary -->
+        <div>
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-ink border-b border-[#E5DFD3] pb-1 mb-2">Professional Summary</h3>
+          <p class="text-xs sm:text-[13px] text-ink-secondary leading-relaxed">
+            Final-year B.Tech Computer Science student (graduating July 2027) seeking a full-time DevOps Engineer role. Built end-to-end automation projects using Kubernetes, Helm, Docker, GitHub Actions, Terraform, Ansible, and AWS. Completed Red Hat Academy training in Linux system administration (RH124, RH134).
+          </p>
+        </div>
+
+        <!-- Skills -->
+        <div>
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-ink border-b border-[#E5DFD3] pb-1 mb-2">Skills</h3>
+          <ul class="space-y-1 text-xs sm:text-[13px] text-ink-secondary">
+            <li><strong class="text-ink">Cloud &amp; IaC:</strong> AWS (EC2, VPC, Security Groups, EKS basics), AWS CLI, Terraform, Ansible</li>
+            <li><strong class="text-ink">Containers &amp; Orchestration:</strong> Docker, Docker Compose, Docker Hub, Kubernetes, Helm, Minikube</li>
+            <li><strong class="text-ink">CI/CD:</strong> GitHub Actions, Jenkins, GitHub Container Registry (GHCR)</li>
+            <li><strong class="text-ink">Monitoring:</strong> Prometheus, Grafana, Cron</li>
+            <li><strong class="text-ink">Operating Systems &amp; Web Servers:</strong> Linux, Red Hat Enterprise Linux (RHEL), Nginx</li>
+            <li><strong class="text-ink">Languages:</strong> Python, Bash, YAML; Flask, Requests</li>
+            <li><strong class="text-ink">Version Control &amp; Databases:</strong> Git, GitHub, GitLab; SQL, MongoDB</li>
+          </ul>
+        </div>
+
+        <!-- Projects -->
+        <div>
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-ink border-b border-[#E5DFD3] pb-1 mb-2.5">Projects</h3>
+          <div class="space-y-3.5 text-xs sm:text-[13px] text-ink-secondary">
+            <div>
+              <div class="flex flex-wrap justify-between gap-1 font-semibold text-ink">
+                <span>AutoDeploy - End-to-End DevOps Automation Platform</span>
+                <a href="https://github.com/sonalkrmehta/AutoDeploy-End-to-End-DevOps-Automation-Platform" target="_blank" rel="noopener noreferrer" class="font-mono text-[11px] text-blue-800 underline">github.com/sonalkrmehta/AutoDeploy-...</a>
+              </div>
+              <p class="font-mono text-[11px] text-ink-muted mb-1">Tech: AWS EC2, Terraform, Ansible, Docker, GitHub Actions, GHCR, Python Flask, Nginx, Linux, Git</p>
+              <ul class="list-disc pl-4 space-y-0.5">
+                <li>Built a GitHub Actions CI/CD pipeline that tests, builds, and pushes Docker images to GHCR and deploys to EC2.</li>
+                <li>Provisioned AWS EC2, Security Groups, and networking with Terraform for reproducible environments.</li>
+                <li>Engineered Ansible playbooks that automate Docker installation, Nginx configuration, and deployment.</li>
+                <li>Containerized a Flask application behind an Nginx reverse proxy and added post-deployment health checks.</li>
+              </ul>
+            </div>
+
+            <div>
+              <div class="flex flex-wrap justify-between gap-1 font-semibold text-ink">
+                <span>Cloud-Native Kubernetes Deployment Platform</span>
+                <a href="https://github.com/sonalkrmehta/Cloud-Native-Kubernetes-Deployment-Platform" target="_blank" rel="noopener noreferrer" class="font-mono text-[11px] text-blue-800 underline">github.com/sonalkrmehta/Cloud-Native-Kubernetes-...</a>
+              </div>
+              <p class="font-mono text-[11px] text-ink-muted mb-1">Tech: Kubernetes, Helm, Docker, Docker Hub, Minikube, GitHub Actions, Prometheus, Grafana, Linux, YAML, Git</p>
+              <ul class="list-disc pl-4 space-y-0.5">
+                <li>Deployed microservices on Kubernetes (Minikube) using Deployments, Services, and Ingress for routing.</li>
+                <li>Managed application configuration and sensitive data with ConfigMaps and Secrets.</li>
+                <li>Configured Horizontal Pod Autoscaling (HPA) and health probes for reliable scaling.</li>
+                <li>Designed a GitHub Actions workflow to build and push images to Docker Hub and deploy to Kubernetes.</li>
+                <li>Packaged deployments as reusable Helm charts and monitored the cluster with Prometheus and Grafana.</li>
+              </ul>
+            </div>
+
+            <div>
+              <div class="flex flex-wrap justify-between gap-1 font-semibold text-ink">
+                <span>InfraWatch - Infrastructure Monitoring &amp; Auto-Remediation System</span>
+                <a href="https://github.com/sonalkrmehta/InfraWatch-Intelligent-Infrastructure-Monitoring-Auto-Remediation-System" target="_blank" rel="noopener noreferrer" class="font-mono text-[11px] text-blue-800 underline">github.com/sonalkrmehta/InfraWatch-...</a>
+              </div>
+              <p class="font-mono text-[11px] text-ink-muted mb-1">Tech: Python, Bash, Ansible, AWS EC2, AWS CLI, Linux, Cron, Git</p>
+              <ul class="list-disc pl-4 space-y-0.5">
+                <li>Developed Python and Bash scripts to monitor CPU, memory, disk, and critical Linux services.</li>
+                <li>Created threshold-based alerts for high resource usage, low disk space, and service failures.</li>
+                <li>Automated remediation with Ansible playbooks that restart failed services and run predefined recovery steps.</li>
+                <li>Scheduled health checks with Cron, logged results for incident analysis, and began adding AWS EC2 checks.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education & Certifications -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+          <div>
+            <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-ink border-b border-[#E5DFD3] pb-1 mb-2">Education</h3>
+            <p class="text-xs sm:text-[13px] font-semibold text-ink">Lovely Professional University</p>
+            <p class="text-xs text-ink-secondary">B.Tech in Computer Science and Engineering</p>
+            <p class="text-[11px] font-mono text-ink-muted mt-0.5">Phagwara, Punjab, India · July 2023 – July 2027 (expected)</p>
+          </div>
+          <div>
+            <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-ink border-b border-[#E5DFD3] pb-1 mb-2">Certifications &amp; Training</h3>
+            <ul class="space-y-1 text-xs text-ink-secondary">
+              <li><strong class="text-ink">AWS Training Badges:</strong> Cloud Quest: Cloud Practitioner, Amazon EKS, Cloud Essentials | AWS | Nov 2026</li>
+              <li><strong class="text-ink">Red Hat System Administration I (RH124) &amp; II (RH134)</strong> | Red Hat Academy | Course completion</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- PROJECT BLUEPRINT INSPECTION MODAL (Dedicated Project Details Sheet)  -->
+  <!-- ===================================================================== -->
+  <div id="project-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6 bg-[#1E232A]/60 backdrop-blur-xs" onclick="closeProjectModal(event)">
+    <div class="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl bg-[#FFFDF9] border-2 border-[#CFC6B6] shadow-2xl p-6 sm:p-8 paper-grain" onclick="event.stopPropagation()">
+      <!-- Top Modal Header -->
+      <div class="flex items-start justify-between gap-4 border-b border-[#E5DFD3] pb-4">
+        <div>
+          <div class="flex items-center gap-2.5 mb-1.5">
+            <span id="modal-entry-num" class="font-mono text-xs font-bold px-2.5 py-0.5 rounded bg-[#1E232A] text-[#FAF8F5]">ENTRY 01</span>
+            <span id="modal-category" class="font-mono text-xs text-blue-800 font-semibold">FEATURED ARCHITECTURE</span>
+          </div>
+          <h3 id="modal-title" class="font-display font-extrabold text-2xl sm:text-3xl text-ink">
+            Project Title
+          </h3>
+        </div>
+
+        <button onclick="hideModal()" aria-label="Close Blueprint" class="p-2 rounded-xl bg-[#F4F0E8] hover:bg-[#E5DFD3] text-ink transition-colors cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Content -->
+      <div class="mt-5 space-y-6">
+        <p id="modal-description" class="text-sm sm:text-base text-ink-secondary leading-relaxed"></p>
+
+        <!-- Architecture Diagram Preview Box -->
+        <div id="modal-diagram-container" class="rounded-xl graph-grid border border-[#DFD8CA] p-4"></div>
+
+        <!-- Key Implementation Highlights -->
+        <div>
+          <h4 class="font-mono text-xs font-bold uppercase tracking-wider text-ink mb-3">
+            Key Implementation Highlights
+          </h4>
+          <ul id="modal-highlights" class="space-y-2 text-sm text-ink-secondary"></ul>
+        </div>
+
+        <!-- Sample Config / Runbook Snippet -->
+        <div>
+          <h4 class="font-mono text-xs font-bold uppercase tracking-wider text-ink mb-2">
+            Infrastructure / Pipeline Blueprint Snippet
+          </h4>
+          <pre class="rounded-xl bg-[#1A1F26] text-slate-200 p-4 font-mono text-xs overflow-x-auto leading-relaxed"><code id="modal-snippet"></code></pre>
+        </div>
+
+        <!-- Tech Stack Badges -->
+        <div>
+          <h4 class="font-mono text-xs font-bold uppercase tracking-wider text-ink mb-2.5">
+            Technology Stack
+          </h4>
+          <div id="modal-stack" class="flex flex-wrap gap-2"></div>
+        </div>
+
+        <!-- Action Footer -->
+        <div class="pt-4 border-t border-[#E5DFD3] flex flex-wrap items-center justify-between gap-3">
+          <span id="modal-note" class="font-hand text-xl font-bold text-blue-800"></span>
+          <div class="flex items-center gap-3">
+            <a id="modal-demo-btn" href="#" target="_blank" rel="noopener noreferrer" class="hidden inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#F4F0E8] border border-[#CFC6B6] hover:border-ink text-xs font-semibold text-ink transition-colors">
+              <span>Live Demo</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+            <a id="modal-repo-btn" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1E232A] text-[#FAF8F5] hover:bg-blue-800 text-xs font-semibold transition-colors">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              <span>Explore on GitHub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- CENTRALIZED PORTFOLIO CONFIGURATION & INTERACTIVE LOGIC               -->
+  <!-- ===================================================================== -->
+  <script>
+    /**
+     * =======================================================================
+     * PORTFOLIO_DATA — Centralized Editable Configuration Object
+     * Update profile details, project descriptions, repository URLs, or skills
+     * right here without touching layout markup.
+     * =======================================================================
+     */
+    const PORTFOLIO_DATA = {
+      profile: {
+        name: "Sonal Kumar",
+        role: "DevOps Engineer",
+        location: "Phagwara, Punjab, India",
+        phone: "+91 6203536132",
+        github: "https://github.com/sonalkrmehta",
+        linkedin: "https://linkedin.com/in/sonal-kumar-b4949624a",
+        credly: "https://www.credly.com/users/sonal-kumar.eb239346/badges/credly",
+        email: "sonalmehta21012005@gmail.com"
+      },
+
+      projects: [
+        {
+          id: "project-01",
+          number: "01",
+          featured: true,
+          category: "FEATURED PLATFORM · END-TO-END DEVOPS",
+          title: "AutoDeploy - End-to-End DevOps Automation Platform",
+          handNote: "GitHub Actions + GHCR + Terraform EC2 + Ansible + Nginx reverse proxy",
+          description:
+            "Built an end-to-end DevOps automation platform integrating GitHub Actions CI/CD, GHCR container publishing, Terraform AWS EC2 provisioning, and Ansible configuration management for a containerized Python Flask application behind Nginx.",
+          stack: [
+            "AWS EC2",
+            "Terraform",
+            "Ansible",
+            "Docker",
+            "GitHub Actions",
+            "GHCR",
+            "Python Flask",
+            "Nginx",
+            "Linux",
+            "Git"
+          ],
+          highlights: [
+            "Built a GitHub Actions CI/CD pipeline that tests, builds, and pushes Docker images to GHCR and deploys to EC2.",
+            "Provisioned AWS EC2, Security Groups, and networking with Terraform for reproducible environments.",
+            "Engineered Ansible playbooks that automate Docker installation, Nginx configuration, and deployment.",
+            "Containerized a Python Flask application behind an Nginx reverse proxy and added post-deployment health checks."
+          ],
+          repoUrl: "https://github.com/sonalkrmehta/AutoDeploy-End-to-End-DevOps-Automation-Platform",
+          liveDemoUrl: "",
+          snippet: `# .github/workflows/autodeploy.yml (Excerpt)
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build & Push Image to GHCR
+        run: docker build -t ghcr.io/sonalkrmehta/autodeploy:latest . && docker push ghcr.io/sonalkrmehta/autodeploy:latest
+      - name: Provision AWS EC2 via Terraform
+        run: terraform init && terraform apply -auto-approve
+      - name: Configure Nginx & Deploy via Ansible
+        run: ansible-playbook -i inventory/hosts.ini playbooks/deploy.yml`,
+          diagramSvg: `
+            <svg viewBox="0 0 460 175" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="18" width="94" height="52" rx="8" fill="#FFFDF9" stroke="#1E232A" stroke-width="1.6"/>
+              <text x="55" y="40" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1E232A">GitHub Actions</text>
+              <text x="55" y="55" text-anchor="middle" font-family="Inter, sans-serif" font-size="8.5" fill="#525B66">Test · Build</text>
+
+              <path d="M104 44 H 124" stroke="#1D4ED8" stroke-width="1.8"/>
+              <polygon points="123,40 130,44 123,48" fill="#1D4ED8"/>
+
+              <rect x="132" y="18" width="96" height="52" rx="8" fill="#EFF6FF" stroke="#1D4ED8" stroke-width="1.6"/>
+              <text x="180" y="40" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1E3A8A">GHCR Registry</text>
+              <text x="180" y="55" text-anchor="middle" font-family="Inter, sans-serif" font-size="8.5" fill="#1D4ED8">Docker Image</text>
+
+              <path d="M230 44 H 250" stroke="#1D4ED8" stroke-width="1.8"/>
+              <polygon points="249,40 256,44 249,48" fill="#1D4ED8"/>
+
+              <rect x="258" y="18" width="92" height="52" rx="8" fill="#FEF9C3" stroke="#A16207" stroke-width="1.6"/>
+              <text x="304" y="40" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#713F12">Terraform</text>
+              <text x="304" y="55" text-anchor="middle" font-family="Inter, sans-serif" font-size="8.5" fill="#854D0E">EC2 + VPC + SG</text>
+
+              <path d="M352 44 H 370" stroke="#15803D" stroke-width="1.8"/>
+              <polygon points="369,40 376,44 369,48" fill="#15803D"/>
+
+              <rect x="378" y="18" width="74" height="52" rx="8" fill="#ECFDF5" stroke="#15803D" stroke-width="1.6"/>
+              <text x="415" y="40" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#14532D">Ansible</text>
+              <text x="415" y="55" text-anchor="middle" font-family="Inter, sans-serif" font-size="8.5" fill="#166534">Nginx + Docker</text>
+
+              <path d="M304 72 V 95" stroke="#1E232A" stroke-width="1.5" stroke-dasharray="3 3"/>
+              <path d="M415 72 V 95" stroke="#1E232A" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+              <rect x="18" y="98" width="424" height="62" rx="10" fill="#FAF8F5" stroke="#4A525D" stroke-width="1.5" stroke-dasharray="5 3"/>
+              <text x="230" y="121" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10.5" font-weight="600" fill="#1E232A">AWS EC2 Linux Host → Nginx Reverse Proxy → Python Flask Container</text>
+              <text x="230" y="140" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#525B66">Reproducible Infrastructure · Automated Rollout · Post-Deployment Health Checks</text>
+            </svg>`
+        },
+        {
+          id: "project-02",
+          number: "02",
+          featured: false,
+          category: "CLOUD-NATIVE · KUBERNETES & HELM",
+          title: "Cloud-Native Kubernetes Deployment Platform",
+          handNote: "Helm charts, HPA autoscaling, Ingress routing & Prometheus/Grafana",
+          description:
+            "Deployed microservices on Kubernetes (Minikube) packaged as reusable Helm charts with Ingress routing, ConfigMaps/Secrets, Horizontal Pod Autoscaling (HPA), GitHub Actions CI/CD to Docker Hub, and Prometheus + Grafana observability.",
+          stack: [
+            "Kubernetes",
+            "Helm",
+            "Docker",
+            "Docker Hub",
+            "Minikube",
+            "GitHub Actions",
+            "Prometheus",
+            "Grafana",
+            "Linux",
+            "YAML",
+            "Git"
+          ],
+          highlights: [
+            "Deployed microservices on Kubernetes (Minikube) using Deployments, Services, and Ingress for routing.",
+            "Managed application configuration and sensitive data with ConfigMaps and Secrets.",
+            "Configured Horizontal Pod Autoscaling (HPA) and liveness/readiness health probes for reliable scaling.",
+            "Designed a GitHub Actions workflow to build and push images to Docker Hub and deploy to Kubernetes.",
+            "Packaged deployments as reusable Helm charts and monitored the cluster with Prometheus and Grafana."
+          ],
+          repoUrl: "https://github.com/sonalkrmehta/Cloud-Native-Kubernetes-Deployment-Platform",
+          liveDemoUrl: "",
+          snippet: `# Helm Release & Horizontal Pod Autoscaler Check
+helm upgrade --install app-release ./charts/microservice -f values-prod.yaml
+kubectl get hpa,ingress,pods -n production
+# Metrics scraped by Prometheus & visualized in Grafana`,
+          diagramSvg: `
+            <svg viewBox="0 0 300 105" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="26" width="68" height="50" rx="6" fill="#FFFDF9" stroke="#1E232A" stroke-width="1.4"/>
+              <text x="42" y="49" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="600" fill="#1E232A">Ingress</text>
+              <text x="42" y="62" text-anchor="middle" font-family="Inter, sans-serif" font-size="7.5" fill="#525B66">K8s Routing</text>
+              <path d="M78 42 L 106 30" stroke="#1D4ED8" stroke-width="1.4"/>
+              <path d="M78 60 L 106 72" stroke="#1D4ED8" stroke-width="1.4"/>
+              <rect x="108" y="10" width="92" height="36" rx="6" fill="#EFF6FF" stroke="#1D4ED8" stroke-width="1.4"/>
+              <text x="154" y="32" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="600" fill="#1E3A8A">Helm Pods + HPA</text>
+              <rect x="108" y="58" width="92" height="36" rx="6" fill="#EFF6FF" stroke="#1D4ED8" stroke-width="1.4"/>
+              <text x="154" y="80" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" font-weight="600" fill="#1E3A8A">ConfigMap/Secret</text>
+              <path d="M202 51 H 222" stroke="#15803D" stroke-width="1.4"/>
+              <rect x="224" y="26" width="68" height="50" rx="6" fill="#ECFDF5" stroke="#15803D" stroke-width="1.4"/>
+              <text x="258" y="49" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" font-weight="600" fill="#14532D">Prometheus</text>
+              <text x="258" y="62" text-anchor="middle" font-family="Inter, sans-serif" font-size="7.5" fill="#166534">&amp; Grafana</text>
+            </svg>`
+        },
+        {
+          id: "project-03",
+          number: "03",
+          featured: false,
+          category: "OBSERVABILITY & SELF-HEALING · LINUX",
+          title: "InfraWatch - Infrastructure Monitoring & Auto-Remediation System",
+          handNote: "Python & Bash telemetry + Cron checks + Ansible self-healing playbooks",
+          description:
+            "Developed a lightweight infrastructure monitoring and auto-remediation system using Python, Bash, Cron, Ansible, and AWS CLI to detect CPU, memory, disk, and Linux service anomalies and trigger automated recovery playbooks.",
+          stack: [
+            "Python",
+            "Bash",
+            "Ansible",
+            "AWS EC2",
+            "AWS CLI",
+            "Linux",
+            "Cron",
+            "Git"
+          ],
+          highlights: [
+            "Developed Python and Bash scripts to monitor CPU, memory, disk, and critical Linux services.",
+            "Created threshold-based alerts for high resource usage, low disk space, and service failures.",
+            "Automated remediation with Ansible playbooks that restart failed services and run predefined recovery steps.",
+            "Scheduled health checks with Cron, logged results for incident analysis, and integrated AWS EC2 checks."
+          ],
+          repoUrl: "https://github.com/sonalkrmehta/InfraWatch-Intelligent-Infrastructure-Monitoring-Auto-Remediation-System",
+          liveDemoUrl: "",
+          snippet: `# Cron-scheduled InfraWatch Health & Remediation Loop
+*/2 * * * * /opt/infrawatch/monitor.py --cpu-thresh 85 --disk-thresh 90
+# On service failure -> triggers:
+ansible-playbook /opt/infrawatch/playbooks/recover_service.yml -e "service=nginx"`,
+          diagramSvg: `
+            <svg viewBox="0 0 300 105" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="22" width="84" height="60" rx="6" fill="#FFFDF9" stroke="#1E232A" stroke-width="1.4"/>
+              <text x="52" y="47" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="600" fill="#1E232A">Python + Bash</text>
+              <text x="52" y="61" text-anchor="middle" font-family="Inter, sans-serif" font-size="7.5" fill="#525B66">Cron + AWS CLI</text>
+              <path d="M96 52 H 114" stroke="#1E232A" stroke-width="1.4"/>
+              <rect x="116" y="22" width="84" height="60" rx="6" fill="#FEF9C3" stroke="#A16207" stroke-width="1.4"/>
+              <text x="158" y="47" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="600" fill="#713F12">Threshold Alert</text>
+              <text x="158" y="61" text-anchor="middle" font-family="Inter, sans-serif" font-size="7.5" fill="#854D0E">CPU · Disk · Svc</text>
+              <path d="M202 52 H 218" stroke="#15803D" stroke-width="1.4"/>
+              <rect x="220" y="22" width="70" height="60" rx="6" fill="#ECFDF5" stroke="#15803D" stroke-width="1.4"/>
+              <text x="255" y="47" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="600" fill="#14532D">Ansible</text>
+              <text x="255" y="61" text-anchor="middle" font-family="Inter, sans-serif" font-size="7.5" fill="#166534">Auto-Recover</text>
+            </svg>`
+        }
+      ],
+
+      skills: [
+        {
+          tab: "TAB A · CLOUD & IaC",
+          title: "Cloud & Infrastructure",
+          accent: "border-blue-600",
+          items: [
+            "AWS (EC2, VPC, Security Groups, EKS basics)",
+            "AWS CLI",
+            "Terraform (Reproducible Infra)",
+            "Ansible (Playbooks & Config Mgmt)"
+          ]
+        },
+        {
+          tab: "TAB B · ORCHESTRATION",
+          title: "Containers & Kubernetes",
+          accent: "border-emerald-600",
+          items: [
+            "Docker & Docker Compose",
+            "Docker Hub & GHCR",
+            "Kubernetes & Minikube",
+            "Helm Charts, Ingress & HPA"
+          ]
+        },
+        {
+          tab: "TAB C · CI/CD & TELEMETRY",
+          title: "CI/CD & Monitoring",
+          accent: "border-amber-600",
+          items: [
+            "GitHub Actions Workflows",
+            "Jenkins Pipelines",
+            "Prometheus & Grafana",
+            "Cron & Auto-Remediation"
+          ]
+        },
+        {
+          tab: "TAB D · LINUX & LANGUAGES",
+          title: "OS, Web & Scripting",
+          accent: "border-slate-800",
+          items: [
+            "Linux & Red Hat Enterprise Linux (RHEL)",
+            "Nginx Reverse Proxy",
+            "Python (Flask, Requests), Bash, YAML",
+            "Git, GitHub, GitLab, SQL, MongoDB"
+          ]
+        }
+      ],
+
+      experience: [
+        {
+          period: "JULY 2023 — JULY 2027 (EXPECTED)",
+          role: "B.Tech in Computer Science and Engineering",
+          org: "Lovely Professional University · Phagwara, Punjab, India",
+          summary:
+            "Final-year undergraduate building end-to-end DevOps & Cloud-Native engineering projects across AWS, Kubernetes, Helm, Terraform, Ansible, Docker, and GitHub Actions. Focused on automated infrastructure provisioning, container orchestration, and Linux system reliability.",
+          tags: ["Computer Science", "Cloud Computing", "Kubernetes", "DevOps Automation", "Linux"]
+        },
+        {
+          period: "HANDS-ON PRACTICE",
+          role: "Red Hat Academy Linux System Administration",
+          org: "RH124 & RH134 Course Completion",
+          summary:
+            "Trained in enterprise Linux administration covering command-line operations, user/permission security, systemd service management, SELinux, firewalld networking, storage configuration, and Bash shell scripting on Red Hat Enterprise Linux (RHEL).",
+          tags: ["RHEL", "RH124", "RH134", "Systemd", "SELinux", "Bash"]
+        }
+      ],
+
+      certifications: [
+        {
+          code: "AWS · NOV 2026",
+          title: "AWS Training Badges",
+          issuer: "Cloud Quest: Cloud Practitioner, Amazon EKS, Cloud Essentials",
+          status: "AWS Certified Track",
+          verifyUrl: "https://www.credly.com/users/sonal-kumar.eb239346/badges/credly"
+        },
+        {
+          code: "RED HAT ACADEMY",
+          title: "Red Hat System Administration I & II",
+          issuer: "RH124 & RH134 — Enterprise Linux Operations & Security",
+          status: "Course Completion",
+          verifyUrl: "https://www.credly.com/users/sonal-kumar.eb239346/badges/credly"
+        }
+      ]
+    };
+
+    /**
+     * =======================================================================
+     * RENDER PROJECTS SECTION (Featured Project 01 + Notebook Grid 02-04)
+     * =======================================================================
+     */
+    function renderProjects() {
+      const container = document.getElementById("projects-grid");
+      if (!container) return;
+
+      const featured = PORTFOLIO_DATA.projects.find((p) => p.featured);
+      const secondary = PORTFOLIO_DATA.projects.filter((p) => !p.featured);
+
+      let html = "";
+
+      // 1. Featured Project Card (Full-width two-column architectural showcase)
+      if (featured) {
+        html += `
+          <article class="notebook-card p-6 sm:p-8 lg:p-10 paper-grain group cursor-pointer reveal-entry" onclick="openProjectModal('${featured.id}')">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              
+              <!-- Left 7 Cols: Entry Details -->
+              <div class="lg:col-span-7 space-y-4">
+                <div class="flex flex-wrap items-center gap-2.5">
+                  <span class="font-mono text-xs font-bold px-2.5 py-1 rounded-md bg-[#1E232A] text-[#FAF8F5]">
+                    PROJECT ${featured.number}
+                  </span>
+                  <span class="font-mono text-xs font-semibold text-blue-800 bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-md">
+                    ${featured.category}
+                  </span>
+                </div>
+
+                <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-ink tracking-tight">
+                  <span class="hand-underline">${featured.title}</span>
+                </h3>
+
+                <p class="text-sm sm:text-base text-ink-secondary leading-relaxed">
+                  ${featured.description}
+                </p>
+
+                <!-- Key Implementation Highlights -->
+                <div class="pt-1">
+                  <span class="font-mono text-[11px] font-bold uppercase tracking-wider text-ink-muted block mb-2">
+                    Key Implementation Highlights
+                  </span>
+                  <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5 text-xs sm:text-[13px] text-ink-secondary">
+                    ${featured.highlights
+                      .map(
+                        (item) => `
+                      <li class="flex items-start gap-2">
+                        <span class="text-blue-700 font-bold mt-0.5">→</span>
+                        <span>${item}</span>
+                      </li>`
+                      )
+                      .join("")}
+                  </ul>
+                </div>
+
+                <!-- Tech Stack Badges -->
+                <div class="flex flex-wrap gap-1.5 pt-2">
+                  ${featured.stack
+                    .map(
+                      (tech) => `
+                    <span class="font-mono text-xs px-2.5 py-1 rounded-md bg-[#F4F0E8] text-ink border border-[#DFD7C8] font-medium">
+                      ${tech}
+                    </span>`
+                    )
+                    .join("")}
+                </div>
+
+                <!-- Card Action Links -->
+                <div class="pt-3 flex flex-wrap items-center gap-3" onclick="event.stopPropagation()">
+                  <button onclick="openProjectModal('${featured.id}')" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1E232A] text-[#FAF8F5] text-xs font-semibold hover:bg-blue-800 transition-colors cursor-pointer">
+                    <span>Inspect Architecture Sheet</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                  </button>
+
+                  <a href="${featured.repoUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#FFFDF9] border border-[#CFC6B6] hover:border-ink text-xs font-semibold text-ink transition-colors">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                    <span>GitHub Repository</span>
+                  </a>
+
+                  ${
+                    featured.liveDemoUrl
+                      ? `<a href="${featured.liveDemoUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-blue-50 border border-blue-200 text-blue-900 text-xs font-semibold hover:bg-blue-100 transition-colors">Live Demo ↗</a>`
+                      : ""
+                  }
+                </div>
+              </div>
+
+              <!-- Right 5 Cols: Large Blueprint Preview Area -->
+              <div class="lg:col-span-5">
+                <div class="rounded-2xl graph-grid border-[1.5px] border-[#D8D0C3] p-4 sm:p-5 shadow-inner relative">
+                  <div class="flex items-center justify-between border-b border-[#E2DBD0] pb-2 mb-3">
+                    <span class="font-mono text-[11px] font-semibold text-ink-muted">BLUEPRINT SKETCH · 01</span>
+                    <span class="font-mono text-[11px] text-emerald-700 font-semibold">CI/CD + IaC</span>
+                  </div>
+                  ${featured.diagramSvg}
+                  <p class="mt-3 font-hand text-lg font-bold text-ink-secondary text-center">
+                    "${featured.handNote}"
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </article>
+        `;
+      }
+      // 2. Additional Projects Grid (Projects 02 & 03)
+      if (secondary.length > 0) {
+        const gridColsClass = secondary.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3";
+        html += `<div class="grid grid-cols-1 ${gridColsClass} gap-6">`;
+        secondary.forEach((proj) => {
+          html += `
+            <article class="notebook-card p-6 flex flex-col justify-between paper-grain group cursor-pointer reveal-entry" onclick="openProjectModal('${proj.id}')">
+              <div>
+                <!-- Entry Number & Category -->
+                <div class="flex items-center justify-between gap-2 mb-3">
+                  <span class="font-mono text-xs font-bold px-2.5 py-0.5 rounded bg-[#F4F0E8] border border-[#DDD5C7] text-ink">
+                    PROJECT ${proj.number}
+                  </span>
+                  <span class="font-mono text-[10.5px] font-semibold text-ink-muted uppercase">
+                    ${proj.category.split("·")[1] || proj.category}
+                  </span>
+                </div>
+
+                <!-- Mini Architecture Preview -->
+                <div class="rounded-xl graph-grid border border-[#E2DBD0] p-2.5 mb-4">
+                  ${proj.diagramSvg}
+                </div>
+
+                <!-- Title with Hand-drawn Underline Sweep -->
+                <h3 class="font-display font-bold text-xl text-ink mb-2">
+                  <span class="hand-underline">${proj.title}</span>
+                </h3>
+
+                <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed mb-4">
+                  ${proj.description}
+                </p>
+              </div>
+
+              <div>
+                <!-- Tech Stack Badges -->
+                <div class="flex flex-wrap gap-1.5 mb-4">
+                  ${proj.stack
+                    .map(
+                      (tech) => `
+                    <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-[#FAF8F5] text-ink-secondary border border-[#E2DBD0]">
+                      ${tech}
+                    </span>`
+                    )
+                    .join("")}
+                </div>
+
+                <!-- Handwritten Margin Note + Action Links -->
+                <div class="pt-3 border-t border-[#E5DFD3] flex items-center justify-between gap-2" onclick="event.stopPropagation()">
+                  <button onclick="openProjectModal('${proj.id}')" class="font-mono text-xs font-semibold text-blue-800 hover:text-ink transition-colors cursor-pointer">
+                    Inspect Notes →
+                  </button>
+                  <div class="flex items-center gap-2.5">
+                    ${
+                      proj.liveDemoUrl
+                        ? `<a href="${proj.liveDemoUrl}" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-ink-secondary hover:text-ink underline">Demo</a>`
+                        : ""
+                    }
+                    <a href="${proj.repoUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 font-mono text-xs font-semibold text-ink hover:text-blue-800 transition-colors">
+                      <span>GitHub</span>
+                      <span>↗</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          `;
+        });
+        html += `</div>`;
+      }
+
+      container.innerHTML = html;
+    }
+
+    /**
+     * =======================================================================
+     * RENDER SKILLS, EXPERIENCE & CERTIFICATIONS
+     * =======================================================================
+     */
+    function renderSkillsAndExperience() {
+      // Skills
+      const skillsGrid = document.getElementById("skills-grid");
+      if (skillsGrid) {
+        skillsGrid.innerHTML = PORTFOLIO_DATA.skills
+          .map(
+            (cat) => `
+          <div class="notebook-card p-5 border-t-4 ${cat.accent}">
+            <span class="font-mono text-[10.5px] font-bold text-ink-muted block mb-1">${cat.tab}</span>
+            <h3 class="font-display font-bold text-lg text-ink mb-3.5">${cat.title}</h3>
+            <ul class="space-y-2 text-xs sm:text-sm text-ink-secondary">
+              ${cat.items
+                .map(
+                  (skill) => `
+                <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-ink/60"></span>
+                  <span>${skill}</span>
+                </li>`
+                )
+                .join("")}
+            </ul>
+          </div>`
+          )
+          .join("");
+      }
+
+      // Experience
+      const expList = document.getElementById("experience-list");
+      if (expList) {
+        expList.innerHTML = PORTFOLIO_DATA.experience
+          .map(
+            (exp) => `
+          <div class="notebook-card p-6 relative">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <span class="font-mono text-xs font-bold text-blue-800 bg-blue-50 border border-blue-200 px-2.5 py-0.5 rounded">
+                ${exp.period}
+              </span>
+              <span class="font-mono text-xs text-ink-muted">${exp.org}</span>
+            </div>
+            <h3 class="font-display font-bold text-xl text-ink mb-2">${exp.role}</h3>
+            <p class="text-sm text-ink-secondary leading-relaxed mb-4">${exp.summary}</p>
+            <div class="flex flex-wrap gap-1.5">
+              ${exp.tags
+                .map(
+                  (t) =>
+                    `<span class="font-mono text-[11px] px-2.5 py-0.5 rounded bg-[#F4F0E8] border border-[#E2DBD0] text-ink">${t}</span>`
+                )
+                .join("")}
+            </div>
+          </div>`
+          )
+          .join("");
+      }
+
+      // Certifications
+      const certList = document.getElementById("certifications-list");
+      if (certList) {
+        certList.innerHTML = PORTFOLIO_DATA.certifications
+          .map(
+            (cert) => `
+          <div class="notebook-card p-4 flex flex-col justify-between gap-3">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <span class="font-mono text-[10.5px] font-bold text-ink-muted block">${cert.code}</span>
+                <h4 class="font-display font-bold text-base text-ink">${cert.title}</h4>
+                <p class="text-xs text-ink-secondary mt-0.5">${cert.issuer}</p>
+              </div>
+              <span class="shrink-0 font-mono text-[10.5px] font-semibold px-2 py-1 rounded bg-sticky-yellow text-ink border border-amber-300/70">
+                ${cert.status}
+              </span>
+            </div>
+            <div class="pt-2 border-t border-dashed border-[#E2DBD0] flex items-center justify-between">
+              <span class="font-mono text-[10.5px] text-emerald-800 font-medium">✓ Verifiable Digital Credential</span>
+              <a href="${cert.verifyUrl || PORTFOLIO_DATA.profile.credly}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 font-mono text-[11px] font-semibold text-blue-800 hover:text-ink transition-colors">
+                <span>Verify on Credly</span>
+                <span>↗</span>
+              </a>
+            </div>
+          </div>`
+          )
+          .join("");
+      }
+    }
+
+    /**
+     * =======================================================================
+     * HERO NOTEBOOK INTERACTIVE TERMINAL TABS
+     * =======================================================================
+     */
+    const HERO_SNIPPETS = {
+      tf: {
+        filename: "autodeploy/terraform/main.tf",
+        code: `<span class="text-sky-400">resource</span> <span class="text-amber-300">"aws_instance"</span> <span class="text-emerald-300">"autodeploy_node"</span> {
+  ami                    = var.rhel_ami_id
+  instance_type          = <span class="text-emerald-300">"t3.micro"</span>
+  vpc_security_group_ids = [aws_security_group.web.id]
+}
+
+<span class="text-slate-400"># Provision EC2 &amp; configure Nginx via Ansible</span>
+<span class="text-emerald-400">$</span> terraform apply -auto-approve
+<span class="text-emerald-300">Apply complete! Resources: 6 added.</span>`
+      },
+      yml: {
+        filename: "k8s-platform/charts/values.yaml",
+        code: `<span class="text-sky-400">autoscaling:</span>
+  enabled: <span class="text-amber-300">true</span>
+  minReplicas: <span class="text-emerald-300">2</span>
+  maxReplicas: <span class="text-emerald-300">6</span>
+  targetCPUUtilizationPercentage: <span class="text-emerald-300">75</span>
+
+<span class="text-emerald-400">$</span> helm upgrade --install app ./charts/service
+<span class="text-emerald-300">Release "app" deployed · Prometheus scraping active</span>`
+      },
+      sh: {
+        filename: "infrawatch/monitor.sh",
+        code: `<span class="text-slate-400">#!/usr/bin/env bash</span>
+<span class="text-emerald-400">$</span> ./infrawatch/monitor.sh --check-services
+<span class="text-sky-300">[OK]</span> nginx.service: active (running)
+<span class="text-amber-300">[WARN]</span> worker.service failed → running Ansible playbook
+<span class="text-emerald-300">[RECOVERED]</span> worker.service restarted automatically.`
+      }
+    };
+
+    function switchHeroTab(tabKey) {
+      const snippet = HERO_SNIPPETS[tabKey];
+      if (!snippet) return;
+
+      document.getElementById("hero-terminal-filename").textContent = snippet.filename;
+      document.getElementById("hero-terminal-code").innerHTML = snippet.code;
+
+      ["tf", "yml", "sh"].forEach((key) => {
+        const btn = document.getElementById(`hero-tab-${key}`);
+        if (!btn) return;
+        if (key === tabKey) {
+          btn.className =
+            "px-2.5 py-1 rounded-md font-mono text-[11px] font-semibold bg-[#1E232A] text-[#FAF8F5] transition-colors cursor-pointer";
+        } else {
+          btn.className =
+            "px-2.5 py-1 rounded-md font-mono text-[11px] font-medium bg-[#F4F0E8] text-ink-secondary hover:text-ink transition-colors cursor-pointer";
+        }
+      });
+    }
+
+    /**
+     * =======================================================================
+     * PROJECT BLUEPRINT INSPECTION MODAL LOGIC
+     * =======================================================================
+     */
+    function openProjectModal(projectId) {
+      const proj = PORTFOLIO_DATA.projects.find((p) => p.id === projectId);
+      if (!proj) return;
+
+      document.getElementById("modal-entry-num").textContent = `PROJECT ${proj.number}`;
+      document.getElementById("modal-category").textContent = proj.category;
+      document.getElementById("modal-title").textContent = proj.title;
+      document.getElementById("modal-description").textContent = proj.description;
+      document.getElementById("modal-diagram-container").innerHTML = proj.diagramSvg;
+      document.getElementById("modal-snippet").textContent = proj.snippet;
+      document.getElementById("modal-note").textContent = `"${proj.handNote}"`;
+
+      document.getElementById("modal-highlights").innerHTML = proj.highlights
+        .map(
+          (item) => `
+        <li class="flex items-start gap-2.5">
+          <span class="font-mono text-xs font-bold text-blue-800 mt-0.5">✓</span>
+          <span>${item}</span>
+        </li>`
+        )
+        .join("");
+
+      document.getElementById("modal-stack").innerHTML = proj.stack
+        .map(
+          (tech) => `
+        <span class="font-mono text-xs px-3 py-1 rounded-lg bg-[#F4F0E8] border border-[#DDD5C7] text-ink font-medium">
+          ${tech}
+        </span>`
+        )
+        .join("");
+
+      const repoBtn = document.getElementById("modal-repo-btn");
+      repoBtn.href = proj.repoUrl;
+
+      const demoBtn = document.getElementById("modal-demo-btn");
+      if (proj.liveDemoUrl) {
+        demoBtn.href = proj.liveDemoUrl;
+        demoBtn.classList.remove("hidden");
+      } else {
+        demoBtn.classList.add("hidden");
+      }
+
+      const modal = document.getElementById("project-modal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      document.body.style.overflow = "hidden";
+    }
+
+    function hideModal() {
+      const modal = document.getElementById("project-modal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      document.body.style.overflow = "";
+    }
+
+    function closeProjectModal(event) {
+      if (event.target.id === "project-modal") {
+        hideModal();
+      }
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        hideModal();
+        hideResumeModal();
+      }
+    });
+
+    /**
+     * =======================================================================
+     * RESUME PREVIEW MODAL & BROWSER PRINT / SAVE PDF 
+     * Triggers the browser's native print/save-as-PDF dialog on the exact formatted sheet
+     * =======================================================================
+     */
+    function openResumeModal() {
+      const modal = document.getElementById("resume-modal");
+      if (!modal) return;
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      document.body.style.overflow = "hidden";
+    }
+
+    function hideResumeModal() {
+      const modal = document.getElementById("resume-modal");
+      if (!modal) return;
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      document.body.style.overflow = "";
+    }
+
+    function closeResumeModal(event) {
+      if (event.target.id === "resume-modal") {
+        hideResumeModal();
+      }
+    }
+
+    function downloadResumePDF() {
+      try {
+        // Open the resume preview modal so the user sees the exact formatted layout
+        openResumeModal();
+        showToast("Opening print dialog — select 'Save as PDF'");
+        // Slight timeout to let modal render before triggering print
+        setTimeout(() => {
+          window.print();
+        }, 300);
+      } catch (err) {
+        showToast("Opening resume preview sheet...");
+        openResumeModal();
+      }
+    }
+
+    function handleContactSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById("sender-name").value.trim();
+      const email = document.getElementById("sender-email").value.trim();
+      const msg = document.getElementById("sender-message").value.trim();
+
+      const subject = encodeURIComponent(`DevOps Portfolio Inquiry from ${name}`);
+      const body = encodeURIComponent(`From: ${name} (${email})\n\n${msg}`);
+      window.location.href = `mailto:${PORTFOLIO_DATA.profile.email}?subject=${subject}&body=${body}`;
+      showToast("Opening your email client with pre-filled note...");
+    }
+
+    function copyEmailAddress() {
+      const email = PORTFOLIO_DATA.profile.email;
+      const tempInput = document.createElement("input");
+      tempInput.value = email;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+      showToast(`Copied ${email} to clipboard`);
+    }
+
+    function copyPhoneNumber() {
+      const phone = PORTFOLIO_DATA.profile.phone;
+      const tempInput = document.createElement("input");
+      tempInput.value = phone;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+      showToast(`Copied ${phone} to clipboard`);
+    }
+
+    /**
+     * =======================================================================
+     * TOAST NOTIFICATION HELPER (Notebook Margin Stamp Style)
+     * =======================================================================
+     */
+    function showToast(message) {
+      const container = document.getElementById("toast-container");
+      if (!container) return;
+
+      const toast = document.createElement("div");
+      toast.className =
+        "pointer-events-auto flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-[#1E232A] text-[#FAF8F5] border border-[#3B424E] shadow-paper font-mono text-xs transition-all duration-300 opacity-0 translate-y-2";
+      toast.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span><span>${message}</span>`;
+
+      container.appendChild(toast);
+
+      requestAnimationFrame(() => {
+        toast.classList.remove("opacity-0", "translate-y-2");
+        toast.classList.add("opacity-100", "translate-y-0");
+      });
+
+      setTimeout(() => {
+        toast.classList.remove("opacity-100", "translate-y-0");
+        toast.classList.add("opacity-0", "translate-y-2");
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    /**
+     * =======================================================================
+     * INITIALIZATION & SCROLL REVEAL OBSERVER
+     * =======================================================================
+     */
+    document.addEventListener("DOMContentLoaded", () => {
+      // Sync centralized profile links
+      const emailEl = document.getElementById("contact-email-display");
+      if (emailEl) {
+        emailEl.textContent = PORTFOLIO_DATA.profile.email;
+        emailEl.href = `mailto:${PORTFOLIO_DATA.profile.email}`;
+      }
+      const phoneEl = document.getElementById("contact-phone-display");
+      if (phoneEl) {
+        phoneEl.textContent = PORTFOLIO_DATA.profile.phone;
+        phoneEl.href = `tel:${PORTFOLIO_DATA.profile.phone.replace(/\s+/g, "")}`;
+      }
+      const locEl = document.getElementById("contact-location-display");
+      if (locEl) locEl.textContent = PORTFOLIO_DATA.profile.location;
+
+      ["hero-github-link", "contact-github-link"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.href = PORTFOLIO_DATA.profile.github;
+      });
+      ["hero-linkedin-link", "contact-linkedin-link"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.href = PORTFOLIO_DATA.profile.linkedin;
+      });
+      ["certs-credly-top-link", "certs-credly-bottom-link", "contact-credly-link", "footer-credly-link"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.href = PORTFOLIO_DATA.profile.credly;
+      });
+
+      // Render dynamic sections
+      renderProjects();
+      renderSkillsAndExperience();
+
+      // Mobile menu toggle
+      const mobileBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      if (mobileBtn && mobileMenu) {
+        mobileBtn.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
+        });
+        mobileMenu.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => mobileMenu.classList.add("hidden"));
+        });
+      }
+
+      // Smooth intersection observer for subtle notebook entrance animations
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      document.querySelectorAll(".reveal-entry").forEach((el) => observer.observe(el));
+    });
+  </script>
+</body>
+</html>
